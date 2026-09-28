@@ -39,8 +39,8 @@ Este proyecto sustituye la clásica pila monolítica (como XAMPP) por una arquit
 
 ### 2. Clonar el repositorio
 ```bash
-git clone <URL_DEL_REPOSITORIO>
-cd "Práctica 1 (UD1) — Arranque del entorno de desarrollo con Docker"
+git clone https://github.com/joaquingual2007-dot/practica1-docker-dwes.git
+cd practica1-docker-dwes
 ```
 
 ### 3. Levantar los contenedores
