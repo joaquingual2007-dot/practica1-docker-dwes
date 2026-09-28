@@ -1,0 +1,59 @@
+services:
+  # Servidor Web (Nginx)
+  web:
+    image: nginx:alpine
+    container_name: web
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+    networks:
+      - daw-network
+
+  # Entorno de ejecución PHP (PHP 8.3 FPM)
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    container_name: php
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: daw_db
+      DB_USERNAME: daw_user
+      DB_PASSWORD: daw_password
+    depends_on:
+      - db
+    networks:
+      - daw-network
+
+  # Base de datos relacional (MySQL 8.0)
+  db:
+    image: mysql:8.0
+    container_name: db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: daw_db
+      MYSQL_USER: daw_user
+      MYSQL_PASSWORD: daw_password
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - daw-network
+
+# Volumen persistente para la base de datos
+volumes:
+  db_data:
+
+# Red interna que intercomunica los tres contenedores
+networks:
+  daw-network:
+    driver: bridge
