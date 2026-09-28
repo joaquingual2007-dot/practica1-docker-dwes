@@ -6,7 +6,7 @@
 
 ---
 
-## 📌 Descripción del Proyecto
+##  Descripción del Proyecto
 
 Este proyecto sustituye la clásica pila monolítica (como XAMPP) por una arquitectura moderna basada en microservicios utilizando **Docker** y **Docker Compose**. Cada servicio se ejecuta de forma aislada e intercomunicada en su propio contenedor dentro de una red virtual compartida:
 
@@ -16,7 +16,7 @@ Este proyecto sustituye la clásica pila monolítica (como XAMPP) por una arquit
 
 ---
 
-## 📁 Estructura del Repositorio
+##  Estructura del Repositorio
 
 ```text
 ├── .gitignore          # Archivos y patrones excluidos del control de versiones
@@ -32,7 +32,7 @@ Este proyecto sustituye la clásica pila monolítica (como XAMPP) por una arquit
 
 ---
 
-## 🚀 Cómo Levantarlo
+##  Cómo Levantarlo
 
 ### 1. Requisitos previos
 - Tener instalado **Docker** y **Docker Compose** (Docker Desktop en Windows/Mac o docker-ce en Linux).
@@ -52,7 +52,10 @@ docker compose up -d --build
 
 ### 4. Acceder a la aplicación
 Abre tu navegador web e ingresa a:
-👉 [http://localhost:8080](http://localhost:8080)
+ [http://localhost:8080](http://localhost:8080)
+
+ <img width="1343" height="613" alt="Captura de pantalla 2026-09-28 132155" src="https://github.com/user-attachments/assets/54eb2476-0c84-46c4-9767-0beb26b1dcd6" />
+
 
 Visualizarás el panel informativo con el estado de:
 - Servidor web Nginx en puerto 8080.
@@ -61,9 +64,12 @@ Visualizarás el panel informativo con el estado de:
 
 > **Nota:** La primera vez que se crea el contenedor de MySQL puede tardar unos segundos en inicializar el catálogo de datos. Si al primer segundo muestra aviso de inicialización, simplemente recarga la página.
 
+
+<img width="1377" height="180" alt="Captura de pantalla 2026-09-28 132551" src="https://github.com/user-attachments/assets/b50f7345-d6dc-434e-9276-4e584df77930" />
+
 ---
 
-## 🛑 Cómo Detener el Entorno
+##  Cómo Detener el Entorno
 
 Para detener y retirar los contenedores preservando los datos:
 ```bash
