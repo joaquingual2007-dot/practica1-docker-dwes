@@ -62,196 +62,142 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Práctica 1 (UD1) — Entorno de Desarrollo con Docker</title>
     <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-green: #22c55e;
-            --accent-red: #ef4444;
-            --accent-blue: #3b82f6;
-            --accent-cyan: #06b6d4;
-            --border-color: #334155;
-        }
-
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            min-height: 100vh;
-            padding: 2.5rem 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin: 0;
+            padding: 24px;
+            background: #fff;
+            color: #111;
+            font-family: Arial, sans-serif;
         }
 
         .container {
-            max-width: 900px;
             width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         header {
-            text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 24px;
+        }
+
+        .badge-header,
+        p.subtitle,
+        footer {
+            color: #444;
         }
 
         .badge-header {
-            display: inline-block;
-            background: rgba(59, 130, 246, 0.15);
-            color: var(--accent-blue);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 0.35rem 0.85rem;
-            border-radius: 9999px;
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            display: block;
+            margin-bottom: 8px;
         }
 
         h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #60a5fa, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin: 0 0 8px;
+            font-size: 1.8rem;
         }
 
         p.subtitle {
-            color: var(--text-muted);
-            font-size: 1.05rem;
+            margin: 0;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.25rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            position: relative;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: #475569;
+        .card,
+        .connection-status,
+        .alert-box {
+            border: 1px solid #bbb;
+            border-radius: 0;
+            background: #fff;
+            padding: 16px;
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
         .card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-weight: bold;
         }
 
         .status-pill {
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 0.25rem 0.6rem;
-            border-radius: 9999px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
+            font-size: 0.85rem;
         }
 
         .status-ok {
-            background-color: rgba(34, 197, 94, 0.15);
-            color: var(--accent-green);
-            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #176b2c;
         }
 
         .status-error {
-            background-color: rgba(239, 68, 68, 0.15);
-            color: var(--accent-red);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #a00000;
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: currentColor;
+            display: none;
         }
 
         .info-list {
-            list-style: none;
+            display: grid;
+            gap: 6px;
+            margin: 0;
+            padding-left: 20px;
             font-size: 0.9rem;
-            color: var(--text-muted);
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .info-list strong {
-            color: var(--text-color);
         }
 
         .connection-status {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 24px;
+        }
+
+        .connection-status h3 {
+            margin-top: 0;
         }
 
         .alert-box {
-            padding: 1rem 1.25rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            font-size: 0.95rem;
+            margin-top: 12px;
             line-height: 1.5;
         }
 
         .alert-success {
-            background-color: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #86efac;
+            border-color: #176b2c;
         }
 
         .alert-danger {
-            background-color: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #fca5a5;
+            border-color: #a00000;
         }
 
         footer {
-            text-align: center;
-            margin-top: auto;
-            color: var(--text-muted);
+            border-top: 1px solid #bbb;
+            padding-top: 12px;
             font-size: 0.85rem;
-            border-top: 1px solid var(--border-color);
-            padding-top: 1.5rem;
-            width: 100%;
         }
 
         code {
-            background: #090d16;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
+            padding: 2px 4px;
+            background: #f2f2f2;
             font-family: monospace;
-            color: #38bdf8;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+
+            .card-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -267,7 +213,7 @@ try {
             <!-- Contenedor 1: Web (Nginx) -->
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">🌐 Servidor Web</span>
+                    <span class="card-title">Servidor Web</span>
                     <span class="status-pill status-ok">
                         <span class="status-dot"></span> Online
                     </span>
@@ -283,7 +229,7 @@ try {
             <!-- Contenedor 2: PHP (PHP-FPM 8.3) -->
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">🐘 Intérprete PHP</span>
+                    <span class="card-title">Intérprete PHP</span>
                     <span class="status-pill status-ok">
                         <span class="status-dot"></span> PHP <?= PHP_VERSION ?>
                     </span>
@@ -292,14 +238,14 @@ try {
                     <li><strong>Contenedor:</strong> <code>php</code> (PHP-FPM 8.3)</li>
                     <li><strong>Versión exacta:</strong> PHP <?= phpversion() ?></li>
                     <li><strong>SAPI:</strong> <?= php_sapi_name() ?></li>
-                    <li><strong>PDO MySQL:</strong> <?= extension_loaded('pdo_mysql') ? '✅ Instalado' : '❌ Falta' ?></li>
+                    <li><strong>PDO MySQL:</strong> <?= extension_loaded('pdo_mysql') ? 'Instalado' : 'Falta' ?></li>
                 </ul>
             </div>
 
             <!-- Contenedor 3: Base de Datos (MySQL) -->
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">🗄️ Base de Datos</span>
+                    <span class="card-title">Base de Datos</span>
                     <?php if ($pdoConnected): ?>
                         <span class="status-pill status-ok">
                             <span class="status-dot"></span> Conectado
@@ -321,14 +267,11 @@ try {
 
         <!-- Sección de Verificación de Conexión PDO -->
         <div class="connection-status">
-            <h3>🔌 Verificación de Conexión PDO MySQL</h3>
+            <h3>Verificación de Conexión PDO MySQL</h3>
             <?php if ($pdoConnected): ?>
                 <div class="alert-box alert-success">
                     <strong>¡Conexión establecida con éxito!</strong><br>
-                    El script PHP ha establecido comunicación con el contenedor <code>db</code> mediante la extensión <strong>PDO</strong>.<br>
-                    Se ejecutaron operaciones de lectura y escritura en la tabla <code>registro_visitas</code>.<br>
-                    Visitas acumuladas registradas en la base de datos: <strong><?= $visitasCount ?></strong>.
-                </div>
+                    </div>
             <?php else: ?>
                 <div class="alert-box alert-danger">
                     <strong>Error al conectar con la base de datos:</strong><br>
